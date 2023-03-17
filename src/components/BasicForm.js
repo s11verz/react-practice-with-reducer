@@ -14,7 +14,7 @@ const BasicForm = (props) => {
   } = useSampleInput((value) => value.trim() !== "");
 
   const {
-    valud: secondNameValue,
+    value: secondNameValue,
     isValid: secondNameIsValid,
     hasError: secondNameHasError,
     inputChangeHandler: secondNameChangeHandler,
@@ -24,25 +24,28 @@ const BasicForm = (props) => {
 
   const {
     value: emailValue,
-    isVlaid: emailIsValid,
+    isValid: emailIsValid,
     hasError: emailHasError,
     inputChangeHandler: emailChangeHandler,
     inputBlurhandler: emailBlurHandler,
     reset: emailReset,
   } = useSampleInput((value) => value.trim() !== "" && regex.test(value));
 
-  let isFormValid = false;
+  let formIsValid = false;
   if (firstNameIsValid && secondNameIsValid && emailIsValid) {
-    isFormValid = true;
-    console.log(isFormValid);
+    formIsValid = true;
   }
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
-    if (!firstNameIsValid || !secondNameIsValid || !emailIsValid) {
+    if (!formIsValid) {
       return;
     }
+
+    console.log(firstNameValue);
+    console.log(secondNameValue);
+    console.log(emailValue);
 
     firstNameReset();
     secondNameReset();
@@ -105,7 +108,7 @@ const BasicForm = (props) => {
         )}
       </div>
       <div className="form-actions">
-        <button disabled={!isFormValid}>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
